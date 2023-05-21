@@ -26,7 +26,7 @@ export function translate_baidu(translateText, query) {
             sign: sign
         },
         success: function (data) {
-            // console.log(data);
+            console.log(data);
             let res = ''
             for(let i = 0; i < data['trans_result'].length; i++) {
                 res += data['trans_result'][i]['dst'];
