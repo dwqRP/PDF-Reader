@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
 import { ref, onMounted } from "vue"
-import { translate_baidu, wiki_baidu, wikipedia } from './utils/myFunction.js'
+import { translate_baidu } from "./utils/myFunction.js"
 const pdfUrl = '/2304.pdf';
 const selectText = ref('');
 const translateText = ref('');
@@ -24,7 +24,7 @@ const getSelectText = () => {
         y2 = e.pageY;
         if (x1 == x2 && y1 == y2) return; //判断点击和抬起的位置，如果相同，则视为没有滑选，不支持双击选中
         let choose = iframe.contentWindow!.getSelection()!.toString();
-        //处理换行符，若后续接小写字符则删除换行
+        //处理换行符
         const chooseChars = [...choose]; // 转换为字符处理，TS String类只读
         for (let i = 0; i < chooseChars.length; i++) {
           if (chooseChars[i] == '\n' && chooseChars[i + 1] >= 'a' && chooseChars[i + 1] <= 'z') {
@@ -41,6 +41,11 @@ const getSelectText = () => {
   };
 };
 
+const retran = function () {
+  // alert(selectText.value);
+  translate_baidu(translateText, selectText.value);
+}
+
 onMounted(() => {
   getSelectText();
 });
@@ -49,12 +54,13 @@ onMounted(() => {
 <template>
   <el-row>
     <el-col :span="16">
-      <iframe width="900px" height="700px" :src="`web/viewer.html?file=` + encodeURIComponent(pdfUrl)"
+      <iframe width="900px" height="100%" :src="`web/viewer.html?file=` + encodeURIComponent(pdfUrl)"
         id="pdf_display"></iframe>
     </el-col>
     <el-col :span="8">
       <el-card shadow="hover" class="mgb20" style="height: 340px; width: 350px; float: right;">
         <b>原文（点击进行修改）</b>
+        <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
         <el-input placeholder="原文" type="textarea" rows="13" v-model="selectText" resize="none"></el-input>
       </el-card>
       <el-card shadow="hover" class="mgb20" style="height: 340px; width: 350px; float: right;">
