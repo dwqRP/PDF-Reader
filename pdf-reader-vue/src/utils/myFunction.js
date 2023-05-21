@@ -1,17 +1,17 @@
-import {MD5} from './md5.js'
+import { MD5 } from './md5.js'
 import $ from 'jquery'
 
 export function translate_baidu(translateText, query) {
     let appid = '20230517001681207';
     let key = 'qFGytXmDWDbrzZkTT7S6';
     let salt = (new Date).getTime();
-    query = query.replace(/\n/g,"");
+    query = query.replace(/\n/g, "");
     query = query.split(". ");
     query = query.join(". \n");
     // console.log(query);
     let from = 'en';
     let to = 'zh';
-    let str1 = appid + query + salt +key;
+    let str1 = appid + query + salt + key;
     let sign = MD5(str1);
     $.ajax({
         url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
@@ -27,12 +27,14 @@ export function translate_baidu(translateText, query) {
         },
         success: function (data) {
             console.log(data);
-            let res = ''
-            for(let i = 0; i < data['trans_result'].length; i++) {
-                res += data['trans_result'][i]['dst'];
+            if ('trans_result' in data) {
+                let res = ''
+                for (let i = 0; i < data['trans_result'].length; i++) {
+                    res += data['trans_result'][i]['dst'];
+                }
+                // console.log(res)
+                translateText.value = res;
             }
-            console.log(res)
-            translateText.value = res;
         }
     });
 }
