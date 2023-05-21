@@ -2,8 +2,8 @@ import {MD5} from './md5.js'
 import $ from 'jquery'
 
 export function translate_baidu(translateText, query) {
-    let appid = '20230510001673425';
-    let key = 'aWqc5dLnLxTenq2I7cg5';
+    let appid = '20230517001681207';
+    let key = 'qFGytXmDWDbrzZkTT7S6';
     let salt = (new Date).getTime();
     query = query.replace(/\n/g,"");
     query = query.split(". ");
