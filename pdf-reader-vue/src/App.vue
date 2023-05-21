@@ -24,9 +24,14 @@ const getSelectText = () => {
         y2 = e.pageY;
         if (x1 == x2 && y1 == y2) return; //判断点击和抬起的位置，如果相同，则视为没有滑选，不支持双击选中
         let choose = iframe.contentWindow!.getSelection()!.toString();
-        //处理换行符
-
-
+        //处理换行符，若后续接小写字符则删除换行
+        const chooseChars = [...choose]; // 转换为字符处理，TS String类只读
+        for (let i = 0; i < chooseChars.length; i++) {
+          if (chooseChars[i] == '\n' && chooseChars[i + 1] >= 'a' && chooseChars[i + 1] <= 'z') {
+            chooseChars[i] = ' ';
+          }
+        }
+        choose = chooseChars.join(''); // 恢复字符串
         console.log(choose);
         selectText.value = choose;
         // 调用百度翻译API
