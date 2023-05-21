@@ -1,10 +1,24 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
-import { ref, onMounted } from "vue"
+import { ref, onMounted, reactive } from "vue"
 import { translate_baidu } from "./utils/myFunction.js"
+import "./global.css"
+
 const pdfUrl = '/2304.pdf';
 const selectText = ref('');
 const translateText = ref('');
+const lineCount = reactive({
+  num: 31
+});
+
+const getLineNum = () => {
+  var contentDiv = document.getElementById("content") as Element;
+  var contentHeight = contentDiv.clientHeight;
+  var lineHeight = parseFloat(getComputedStyle(contentDiv).lineHeight);
+  lineCount.num = Math.floor(contentHeight / lineHeight);
+  lineCount.num = Math.floor((lineCount.num - 3) / 2);
+  console.log("Number of lines:", lineCount.num);
+}
 
 // 滑选事件注册： 获取鼠标选中的文本
 const getSelectText = () => {
@@ -47,31 +61,41 @@ const retran = function () {
 }
 
 onMounted(() => {
+  getLineNum();
   getSelectText();
 });
 </script>
 
 <template>
-  <el-row>
-    <el-col :span="16">
-      <iframe width="900px" height="100%" :src="`web/viewer.html?file=` + encodeURIComponent(pdfUrl)"
-        id="pdf_display"></iframe>
-    </el-col>
-    <el-col :span="8">
-      <el-card shadow="hover" class="mgb20" style="height: 340px; width: 350px; float: right;">
-        <b>原文（点击进行修改）</b>
-        <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
-        <el-input placeholder="原文" type="textarea" rows="13" v-model="selectText" resize="none"></el-input>
-      </el-card>
-      <el-card shadow="hover" class="mgb20" style="height: 340px; width: 350px; float: right;">
-        <b>译文</b>
-        <el-input disabled placeholder="译文" type="textarea" rows="13" v-model="translateText" resize="none"></el-input>
-      </el-card>
-    </el-col>
-  </el-row>
+  <div style="width: 100vw;height: 100vh;" id="content">
+    <el-row>
+      <el-col :span="16">
+        <iframe :src="`web/viewer.html?file=` + encodeURIComponent(pdfUrl)" id="pdf_display" class="ifr"></iframe>
+      </el-col>
+      <el-col :span="8">
+        <el-card shadow="hover" style="height: 49vh; width: 33vw;margin-bottom: 2vh;background-color: #f9f9fa;">
+          <b>原文（点击进行修改）</b>
+          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
+          <el-input placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
+        </el-card>
+        <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
+          <b>译文</b>
+          <el-input disabled placeholder="译文" type="textarea" :rows="lineCount.num" style="height: 45vh;"
+            v-model="translateText" resize="none"></el-input>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <style scoped>
+/*引入全局样式*/
+.ifr {
+  width: 66vw;
+  height: 100vh;
+  float: left;
+}
+
 .mgb20 {
   margin-bottom: 20px;
 }
