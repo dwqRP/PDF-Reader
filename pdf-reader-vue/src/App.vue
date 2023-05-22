@@ -1,10 +1,12 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
-import { ref, onMounted, reactive } from "vue"
+import { ref, onMounted, reactive, inject } from "vue"
+
+
 import { translate_baidu } from "./utils/myFunction.js"
 import "./global.css"
 
-const pdfUrl = '/2304.pdf';
+const pdfUrl = inject('message') as string;
 const selectText = ref('');
 const translateText = ref('');
 const lineCount = reactive({
