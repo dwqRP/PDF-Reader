@@ -557,7 +557,7 @@ function showResult(str){
                             console.log(this);
                             console.log(this.innerHTML);
                             console.log(typeof this.innerHTML);
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
                             // window.sessionStorage.setItem("pdf_path",path);
                             var xhttp = new XMLHttpRequest();
@@ -574,10 +574,10 @@ function showResult(str){
                             xhttp.send(send_message);
                         };
                         document.getElementById(button_id).onclick = function (){
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
                             console.log(this);
-                            var name = this.innerHTML.match(/class="name_">(\S*)<\/a>/)[1];
+                            var name = this.innerHTML.match(/class="name_">(.*?)<\/a>/)[1];
                             console.log(name);
                             var account = window.sessionStorage.getItem("account");
                             var xhttp = new XMLHttpRequest();
@@ -592,7 +592,7 @@ function showResult(str){
                             xhttp.send(send_message);
                         };
                         document.getElementById(button_id_copy).onclick = function () {
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
                             var account = window.sessionStorage.getItem("account");
                             var data = Date().substring(0,24);
@@ -692,7 +692,7 @@ function flush_pdf_table() {
                         console.log(this);
                         console.log(this.innerHTML);
                         console.log(typeof this.innerHTML);
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
@@ -708,10 +708,10 @@ function flush_pdf_table() {
                         xhttp.send(send_message);
                     };
                     document.getElementById(button_id).onclick = function (){
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
                         console.log(this);
-                        var name = this.innerHTML.match(/class="name_">(\S*)<\/a>/)[1];
+                        var name = this.innerHTML.match(/class="name_">(.*?)<\/a>/)[1];
                         console.log(name);
                         var account = window.sessionStorage.getItem("account");
                         var xhttp = new XMLHttpRequest();
@@ -726,7 +726,7 @@ function flush_pdf_table() {
                         xhttp.send(send_message);
                     };
                     document.getElementById(button_id_copy).onclick = function () {
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
                         var account = window.sessionStorage.getItem("account");
                         var data = Date().substring(0,24);
