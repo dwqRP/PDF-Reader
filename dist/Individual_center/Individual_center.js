@@ -79,6 +79,8 @@ function selectFile(e) {
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200){
                 var response = this.responseText;
+                if(response == 'fail')
+                    window.alert("文件过大，目前不支持上传！");
             }
         };
         xhttp.send(formData);
@@ -456,7 +458,7 @@ function send_message_button() {
     console.log(lang_input);
     var account_receive = window.sessionStorage.getItem("account");
     console.log(account_receive);
-    var path_input = '/Library/WebServer/Documents/dist/pdf/' + account_receive + '/' + name_input;
+    var path_input = '/var/www/html/pdf/' + account_receive + '/' + name_input;
     console.log(path_input);
     var data = Date().substring(0,24);
     console.log(data);
@@ -557,10 +559,12 @@ function showResult(str){
                             console.log(typeof this.innerHTML);
                             var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
                             console.log(path);
-                            window.sessionStorage.setItem("pdf_path",path);
+                            // window.sessionStorage.setItem("pdf_path",path);
                             var xhttp = new XMLHttpRequest();
                             xhttp.onreadystatechange = function () {
                                 if(this.readyState == 4 && this.status == 200) {
+                                    path = path.slice(13);
+                                    window.sessionStorage.setItem("pdf_path",path);
                                     location.href = '../index.html';
                                 }
                             };
@@ -690,10 +694,11 @@ function flush_pdf_table() {
                         console.log(typeof this.innerHTML);
                         var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
                         console.log(path);
-                        window.sessionStorage.setItem("pdf_path",path);
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
                             if(this.readyState == 4 && this.status == 200) {
+                                path = path.slice(13);
+                                window.sessionStorage.setItem("pdf_path",path);
                                 location.href = '../index.html';
                             }
                         };

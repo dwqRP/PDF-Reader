@@ -26,11 +26,12 @@ function verify() {
     var answer_input = document.getElementById('input_answer').value;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
+        console.log(this.responseText);
         if(this.readyState == 4 && this.status == 200) {
             if(this.responseText.length<=15) {
                 window.alert('此帐号并没有被注册！');
             }
-            else if (this.responseText == 'verify result:Fail to login,your password is wrong!') {
+            else if (this.responseText == 'verify result:Fail to verify,your answer is wrong!') {
                 window.alert(this.responseText);
             }
             else {
