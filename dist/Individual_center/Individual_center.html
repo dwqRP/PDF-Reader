@@ -98,7 +98,12 @@
                 <div class="get_img" id="get_img">
                     <!--拖拽上传框-->
                     <div class="input_file" id="drop">
-                        <p>拖拽上传文件</p>
+                        <div class="show_upload" id="show_upload">
+                            <img src="https://www.z4a.net/images/2023/05/23/2023-05-23-08.36.31.png" alt="">
+                            <div class="pdf_name_show">
+                                <p id="name"></p >
+                            </div>
+                        </div>
                         <button onclick="input_file()" id="file_button">从本机上传文件</button>
                         <input type="file" id="choose_file" accept="application/pdf" onchange="selectFile(event)" style="display: none;">
                     </div>
@@ -130,8 +135,7 @@
                                     <option value="Syn">综合类(Syn)</option>
                                 </select>
                             </div>
-                            <button type="button" onclick="send_message_button()" id="file_information_button">信息完善</button>
-                            <button type="button" id="back_button" onclick="back()">返回界面</button>
+                            <button type="button" onclick="send_message_button()" id="file_information_button">确认选择</button>
                         </form>
                     </div>
                 </div>

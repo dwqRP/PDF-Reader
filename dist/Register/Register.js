@@ -22,10 +22,9 @@ function get_input () {
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
                             if(this.readyState == 4 && this.status == 200){
-                                if(this.responseText == 'Register successfully!') {
-                                    console.log("111111");
-                                    location.href = '../Login/Login.html';
+                                if(this.responseText[0] === 'R') {
                                     window.alert(this.responseText);
+                                    location.href = '../Login/Login.html';
                                 }
                                 else {
                                     window.alert(this.responseText);

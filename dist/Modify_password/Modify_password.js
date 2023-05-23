@@ -9,6 +9,7 @@ function get_password () {
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200){
                 window.alert("successfully");
+                location.href = '../Login/Login.html';
             }
         };
         xhttp.open("POST","/server/Modify.php",true);

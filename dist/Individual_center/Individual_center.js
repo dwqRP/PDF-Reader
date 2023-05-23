@@ -79,6 +79,16 @@ function selectFile(e) {
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200){
                 var response = this.responseText;
+                console.log(file);
+                console.log(file['name']);
+                if(response == 'fail')
+                    window.alert("文件过大，目前不支持上传！");
+                else{
+		if(file['name'].length <=9 ) var name = file['name'];
+                else var name = file['name'].substring(0,9) + '…' + '.pdf';
+                document.getElementById('name').innerHTML = name;
+                document.getElementById('show_upload').style.display = 'block';
+		}
             }
         };
         xhttp.send(formData);
@@ -448,7 +458,7 @@ function study_card(){
 }
 
 function send_message_button() {
-    var name_input = file.name;
+    var name_input = file['name'];
     console.log(name_input);
     var tag_input = document.getElementById('tag_file').value;
     console.log(tag_input);
@@ -456,7 +466,7 @@ function send_message_button() {
     console.log(lang_input);
     var account_receive = window.sessionStorage.getItem("account");
     console.log(account_receive);
-    var path_input = '/Library/WebServer/Documents/dist/pdf/' + account_receive + '/' + name_input;
+    var path_input = '/var/www/html/pdf/' + account_receive + '/' + name_input;
     console.log(path_input);
     var data = Date().substring(0,24);
     console.log(data);
@@ -466,9 +476,9 @@ function send_message_button() {
         xhttp.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200) {
                 flush_pdf_table();
-                window.alert(this.responseText);
-                document.getElementById('path_file').value = '';
-                document.getElementById('tag_file').value = '';
+		window.alert(this.responseText);
+		document.getElementById('get_img').style.display = 'none';
+                document.getElementById('pdf_show_table').style.display = 'block';
             }
         };
         xhttp.open("POST","/server/Individual_center.php",true);
@@ -555,12 +565,14 @@ function showResult(str){
                             console.log(this);
                             console.log(this.innerHTML);
                             console.log(typeof this.innerHTML);
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
-                            window.sessionStorage.setItem("pdf_path",path);
+                            // window.sessionStorage.setItem("pdf_path",path);
                             var xhttp = new XMLHttpRequest();
                             xhttp.onreadystatechange = function () {
                                 if(this.readyState == 4 && this.status == 200) {
+                                    path = path.slice(13);
+                                    window.sessionStorage.setItem("pdf_path",path);
                                     location.href = '../index.html';
                                 }
                             };
@@ -570,10 +582,10 @@ function showResult(str){
                             xhttp.send(send_message);
                         };
                         document.getElementById(button_id).onclick = function (){
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
                             console.log(this);
-                            var name = this.innerHTML.match(/class="name_">(\S*)<\/a>/)[1];
+                            var name = this.innerHTML.match(/class="name_">(.*?)<\/a>/)[1];
                             console.log(name);
                             var account = window.sessionStorage.getItem("account");
                             var xhttp = new XMLHttpRequest();
@@ -588,7 +600,7 @@ function showResult(str){
                             xhttp.send(send_message);
                         };
                         document.getElementById(button_id_copy).onclick = function () {
-                            var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                            var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                             console.log(path);
                             var account = window.sessionStorage.getItem("account");
                             var data = Date().substring(0,24);
@@ -688,12 +700,13 @@ function flush_pdf_table() {
                         console.log(this);
                         console.log(this.innerHTML);
                         console.log(typeof this.innerHTML);
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
-                        window.sessionStorage.setItem("pdf_path",path);
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
                             if(this.readyState == 4 && this.status == 200) {
+                                path = path.slice(13);
+                                window.sessionStorage.setItem("pdf_path",path);
                                 location.href = '../index.html';
                             }
                         };
@@ -703,10 +716,10 @@ function flush_pdf_table() {
                         xhttp.send(send_message);
                     };
                     document.getElementById(button_id).onclick = function (){
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
                         console.log(this);
-                        var name = this.innerHTML.match(/class="name_">(\S*)<\/a>/)[1];
+                        var name = this.innerHTML.match(/class="name_">(.*?)<\/a>/)[1];
                         console.log(name);
                         var account = window.sessionStorage.getItem("account");
                         var xhttp = new XMLHttpRequest();
@@ -721,7 +734,7 @@ function flush_pdf_table() {
                         xhttp.send(send_message);
                     };
                     document.getElementById(button_id_copy).onclick = function () {
-                        var path = this.innerHTML.match(/class="path_">(\S*)<\/p>/)[1];
+                        var path = this.innerHTML.match(/class="path_">(.*?)<\/p>/)[1];
                         console.log(path);
                         var account = window.sessionStorage.getItem("account");
                         var data = Date().substring(0,24);
