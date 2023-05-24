@@ -91,7 +91,14 @@ export default {
       contents: contents,
     }
   },
+  methods: {
+	  showCards() {
+      this.showModal = true;
+      //...
+  	}
+	}
 }
+
 </script>
 
 <template>
@@ -115,7 +122,7 @@ export default {
       </el-col>
       <el-col :span="8">
         <el-card shadow="hover" style="height: 49vh; width: 33vw;margin-bottom: 2vh;background-color: #f9f9fa;">
-          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain id="show-modal" @click="showModal = true">选择闪卡</el-button>
+          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain id="show-modal" @click="showCards">选择闪卡</el-button>
           <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="test">测试</el-button>
