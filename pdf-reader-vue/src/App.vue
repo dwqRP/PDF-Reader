@@ -13,7 +13,6 @@ const lineCount = reactive({
   num: 31
 });
 
-
 const getLineNum = () => {
   var contentDiv = document.getElementById("content") as Element;
   var contentHeight = contentDiv.clientHeight;
@@ -94,6 +93,8 @@ export default {
   methods: {
 	  showCards() {
       this.showModal = true;
+      var bbb = document.getElementById("aaa").value;
+      alert(bbb);
       //...
   	}
 	}
@@ -126,7 +127,7 @@ export default {
           <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="test">测试</el-button>
-          <el-input placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
+          <el-input id='aaa' placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
         </el-card>
         <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
           <b>译文</b>
