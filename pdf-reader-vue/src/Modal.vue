@@ -90,6 +90,7 @@ export default {
 .modal-default-button {
   float: margin-top;
   width: 100%;
+  background-color: lightgrey;
 }
 
 /*
