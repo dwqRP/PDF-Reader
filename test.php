@@ -1,6 +1,5 @@
 <?php
-$name = "哈哈哈哈哈哈";
-echo $name;
-$name_process = urlencode($name);
-echo urldecode ('%E6%88%91%E6%98%AF%E8%B0%81');
+$path = '/var/www/html/2304.pdf';
+if(is_file($path)) echo "success!";
+else echo "fail!";
 ?>

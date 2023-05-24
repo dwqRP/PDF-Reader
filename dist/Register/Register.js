@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function get_input () {
     var account_input = document.getElementById('input_account').value;
     console.log(account_input);
@@ -16,81 +15,35 @@ function get_input () {
         else {
             if (password_again_input != password_input) window.alert('两次输入的密码值不相同！');
             else {
-                if (question_input == "") window.alert('问题不可为空！')
-                else {
-                    if (answer_input == "") window.alert('回答不可为空！')
+                if(password_input.length <= 8) window.alert('密码长度不可小于8位')
+                else{
+                    if (question_input == "") window.alert('问题不可为空！')
                     else {
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function () {
-                            if(this.readyState == 4 && this.status == 200){
-                                if(this.responseText[0] === 'R') {
-                                    window.alert(this.responseText);
-                                    location.href = '../Login/Login.html';
+                        if (answer_input == "") window.alert('回答不可为空！')
+                        else {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.onreadystatechange = function () {
+                                if(this.readyState == 4 && this.status == 200){
+                                    if(this.responseText[0] === 'R') {
+                                        window.alert(this.responseText);
+                                        location.href = '../Login/Login.html';
+                                    }
+                                    else {
+                                        window.alert(this.responseText);
+                                        location.href = 'Register.html';
+                                    }
                                 }
-                                else {
-                                    window.alert(this.responseText);
-                                    location.href = 'Register.html';
-                                }
-                            }
-                        };
-                        xhttp.open("POST","/server/server.php",true);
-                        var send_message = "account=" + account_input + "&password=" + password_input +
-                            "&password_again=" + password_again_input + "&question=" + question_input +
-                            "&answer=" + answer_input;
-                        xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                        xhttp.send(send_message);
+                            };
+                            xhttp.open("POST","/server/server.php",true);
+                            var send_message = "account=" + account_input + "&password=" + password_input +
+                                "&password_again=" + password_again_input + "&question=" + question_input +
+                                "&answer=" + answer_input;
+                            xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                            xhttp.send(send_message);
+                        }
                     }
                 }
             }
         }
     }
 }
-=======
-function get_input () {
-    var account_input = document.getElementById('input_account').value;
-    console.log(account_input);
-    var password_input = document.getElementById('input_pass').value;
-    console.log(password_input);
-    var password_again_input = document.getElementById('input_pass_again').value;
-    console.log(password_again_input);
-    var question_input = document.getElementById('input_quest').value;
-    console.log(question_input);
-    var answer_input = document.getElementById('input_answ').value;
-    console.log(answer_input);
-    if (account_input == "") window.alert('帐号不可为空！');
-    else {
-        if (password_input == "") window.alert('密码不可为空！');
-        else {
-            if (password_again_input != password_input) window.alert('两次输入的密码值不相同！');
-            else {
-                if (question_input == "") window.alert('问题不可为空！')
-                else {
-                    if (answer_input == "") window.alert('回答不可为空！')
-                    else {
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function () {
-                            if(this.readyState == 4 && this.status == 200){
-                                if(this.responseText == 'Register successfully!') {
-                                    console.log("111111");
-                                    location.href = '../Login/Login.html';
-                                    window.alert(this.responseText);
-                                }
-                                else {
-                                    window.alert(this.responseText);
-                                    location.href = 'Register.html';
-                                }
-                            }
-                        };
-                        xhttp.open("POST","/server/server.php",true);
-                        var send_message = "account=" + account_input + "&password=" + password_input +
-                            "&password_again=" + password_again_input + "&question=" + question_input +
-                            "&answer=" + answer_input;
-                        xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                        xhttp.send(send_message);
-                    }
-                }
-            }
-        }
-    }
-}
->>>>>>> f6e0bd2179548d6ed5a2d729272190564a3bf8f9
