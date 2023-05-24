@@ -13,6 +13,7 @@ const lineCount = reactive({
   num: 31
 });
 
+
 const getLineNum = () => {
   var contentDiv = document.getElementById("content") as Element;
   var contentHeight = contentDiv.clientHeight;
@@ -62,13 +63,58 @@ const retran = function () {
   translate_baidu(translateText, selectText.value);
 }
 
+const test = function () {
+  // alert(selectText.value);
+  alert(cardChoose);
+}
+
 onMounted(() => {
   getLineNum();
   getSelectText();
 });
 </script>
 
+<script lang="ts">
+import Modal from './Modal.vue'
+
+var titles = ['title1', 'title2', 'title3'];
+var contents = ['content1', 'content2', 'content3'];
+
+export default {
+  components: {
+    Modal
+  },
+  data() {
+    return {
+      showModal: false,
+      titles: titles,
+      contents: contents,
+    }
+  },
+  methods: {
+	  showCards() {
+      this.showModal = true;
+      //...
+  	}
+	}
+}
+
+</script>
+
 <template>
+  <!-- <div class="model" v-show="isShowMultiple" @click="setMaskShow($event)">
+      <div class="modelFixed" ref="child">
+                       此处为内容区
+      </div>
+  </div> -->
+  <Teleport to="body">
+    <!-- 使用这个 modal 组件，传入 prop -->
+    <modal :show="showModal" @close="showModal = false" :titles="titles" :contents="contents">
+      <template #header>
+        <h3>custom header</h3>
+      </template>
+    </modal>
+  </Teleport>
   <div style="width: 100vw;height: 100vh;" id="content">
     <el-row>
       <el-col :span="16">
@@ -76,8 +122,10 @@ onMounted(() => {
       </el-col>
       <el-col :span="8">
         <el-card shadow="hover" style="height: 49vh; width: 33vw;margin-bottom: 2vh;background-color: #f9f9fa;">
-          <b>原文（点击进行修改）</b>
+          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain id="show-modal" @click="showCards">选择闪卡</el-button>
+          <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
+          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="test">测试</el-button>
           <el-input placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
         </el-card>
         <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
