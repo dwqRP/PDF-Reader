@@ -39,6 +39,47 @@ export function translate_baidu(translateText, query) {
     });
 }
 
+export function translate_youdao(translateText, query) {
+    function truncate(q){
+        var len = q.length;
+        if(len<=20) return q;
+        return q.substring(0, 10) + len + q.substring(len-10, len);
+    }
+    var appKey = '6d7ac4bd05348373';
+    var key = '0DyCHLWMR3qSKljIunVYARUNfaUw4Y0P';//注意：暴露appSecret，有被盗用造成损失的风险
+    var salt = (new Date).getTime();
+    var curtime = Math.round(new Date().getTime()/1000);
+    // var query = '您好，欢迎再次使用有道智云文本翻译API接口服务';
+    // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+    var from = 'en';
+    var to = 'zh-CHS';
+    var str1 = appKey + truncate(query) + salt + curtime + key;
+    var vocabId =  '您的用户词表ID';
+    //console.log('---',str1);
+
+    var sign = CryptoJS.SHA256(str1).toString(CryptoJS.enc.Hex);
+    $.ajax({
+        url: 'https://openapi.youdao.com/api',
+        type: 'post',
+        dataType: 'jsonp',
+        data: {
+            q: query,
+            appKey: appKey,
+            salt: salt,
+            from: from,
+            to: to,
+            sign: sign,
+            signType: "v3",
+            curtime: curtime,
+            vocabId: vocabId,
+        },
+        success: function (data) {
+            console.log(data.translation);
+            translateText.value = data.translation;
+        } 
+    });
+}
+
 export function wiki_baidu(query) {
     $.ajax({
         url: 'https://baike.baidu.com/api/openapi/BaikeLemmaCardApi',

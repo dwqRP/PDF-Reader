@@ -105,6 +105,10 @@ export default {
 </script>
 
 <template>
+  <div v-is="'script'" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></div> 
+  <div v-is="'script'" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></div> 
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script> -->
   <!-- <div class="model" v-show="isShowMultiple" @click="setMaskShow($event)">
       <div class="modelFixed" ref="child">
                        此处为内容区
