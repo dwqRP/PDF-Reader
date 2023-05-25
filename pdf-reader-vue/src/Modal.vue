@@ -2,15 +2,34 @@
 export default {
   props: {
     show: Boolean,
-    username: String,
-    pdf: String,
     titles: [String, String, String],
     contents: [String, String, String],
   },
   methods: {
 	  back(num) {
       //num代表选中的是第几个闪卡
-      // alert(this.pdf);
+      let pdfUrl = document.getElementById("pdf_display").src;
+      let username_input = pdfUrl.split('%2F')[2];
+      let pdf_input = pdfUrl.split('%2F')[3].split('.')[0];
+      let word_input = this.titles[num-1];
+      let detail_input = this.contents[num-1];
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          if (this.responseText == 'Write DB successfully!') {
+            console.log("111111");
+            window.alert(this.responseText);
+          } else {
+            window.alert(this.responseText);
+          }
+        }
+      };
+      // todo：修改服务器地址
+      xhttp.open("POST", "http://localhost/blingCard.php", true);
+      var send_message = "username=" + username_input + "&pdf=" + pdf_input
+          + "&word=" + word_input + "&detail=" + detail_input;
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send(send_message);
       this.$emit('close')
   	}
 	}

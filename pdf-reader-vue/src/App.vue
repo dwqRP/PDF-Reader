@@ -79,12 +79,8 @@ onMounted(() => {
 import Modal from './Modal.vue'
 import {wikipedia} from "./utils/myFunction";
 
-var titles = ['title1', 'title2', 'title3'];
-var contents = ['content1', 'content2', 'content3'];
-var pageIds = ['id1', 'id2', 'id3'];
-var pdfUrl = '';
-var username = '';
-var pdf = '';
+let titles = ['title1', 'title2', 'title3'];
+let contents = ['content1', 'content2', 'content3'];
 
 export default {
   components: {
@@ -93,8 +89,6 @@ export default {
   data() {
     return {
       showModal: false,
-      username: username,
-      pdf: pdf,
       titles: titles,
       contents: contents,
     }
@@ -102,13 +96,7 @@ export default {
   methods: {
 	  showCards() {
       // this.showModal = true;
-      var selectText = document.getElementById("selectText").value;
-      // pdfUrl = document.getElementById("pdf_display").src;
-      // username = pdfUrl.split('%2F')[2];
-      // this.username = username;
-      // this.pdf = pdfUrl.split('%2F')[3].split('.')[0];
-      // alert(1111)
-      // alert(pdfUrl)
+      let selectText = document.getElementById("selectText").value;
       wikipedia(selectText, this);
   	}
 	}
