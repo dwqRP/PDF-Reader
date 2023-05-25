@@ -3,7 +3,7 @@
 import { ref, onMounted, reactive, inject } from "vue"
 
 
-import { translate_baidu } from "./utils/myFunction.js"
+import { translate_baidu, translate_youdao } from "./utils/myFunction.js"
 import "./global.css"
 
 // const pdfUrl = inject('message') as string;
@@ -52,16 +52,19 @@ const getSelectText = () => {
         choose = chooseChars.join(''); // 恢复字符串
         console.log(choose);
         selectText.value = choose;
-        // 调用百度翻译API
-        translate_baidu(translateText, choose);
+        // 调用翻译API
+        let picked = document.getElementById("radioo").innerText.trim();
+        if (picked == 'One') translate_baidu(translateText, choose);
+        if (picked == 'Two') translate_youdao(translateText, choose);
       }, true);
     }
   };
 };
 
 const retran = function () {
-  // alert(selectText.value);
-  translate_baidu(translateText, selectText.value);
+  let picked = document.getElementById("radioo").innerText.trim();
+  if (picked == 'One') translate_baidu(translateText, selectText.value);
+  if (picked == 'Two') translate_youdao(translateText, selectText.value);
 }
 
 const test = function () {
@@ -91,6 +94,7 @@ export default {
       showModal: false,
       titles: titles,
       contents: contents,
+      picked: 'One',
     }
   },
   methods: {
@@ -132,7 +136,10 @@ export default {
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain id="show-modal" @click="showCards">选择闪卡</el-button>
           <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
-          <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="test">测试</el-button>
+          <input type="radio" id="one" value="One" v-model="picked">
+          <label for="one">百度翻译</label>
+          <input type="radio" id="two" value="Two" v-model="picked">
+          <label for="two">有道翻译</label>
           <el-input id="selectText" placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
         </el-card>
         <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
@@ -143,6 +150,7 @@ export default {
       </el-col>
     </el-row>
   </div>
+  <label id='radioo'>{{ picked }}</label>
 </template>
 
 <style scoped>
