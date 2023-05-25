@@ -2,12 +2,15 @@
 export default {
   props: {
     show: Boolean,
+    username: String,
+    pdf: String,
     titles: [String, String, String],
     contents: [String, String, String],
   },
   methods: {
 	  back(num) {
       //num代表选中的是第几个闪卡
+      // alert(this.pdf);
       this.$emit('close')
   	}
 	}

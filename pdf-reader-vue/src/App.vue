@@ -6,7 +6,9 @@ import { ref, onMounted, reactive, inject } from "vue"
 import { translate_baidu } from "./utils/myFunction.js"
 import "./global.css"
 
-const pdfUrl = inject('message') as string;
+// const pdfUrl = inject('message') as string;
+// todo：注释掉这里
+const pdfUrl = "/pdf/alan/test_pdf.pdf";
 const selectText = ref('');
 const translateText = ref('');
 const lineCount = reactive({
@@ -75,9 +77,14 @@ onMounted(() => {
 
 <script lang="ts">
 import Modal from './Modal.vue'
+import {wikipedia} from "./utils/myFunction";
 
 var titles = ['title1', 'title2', 'title3'];
 var contents = ['content1', 'content2', 'content3'];
+var pageIds = ['id1', 'id2', 'id3'];
+var pdfUrl = '';
+var username = '';
+var pdf = '';
 
 export default {
   components: {
@@ -86,16 +93,23 @@ export default {
   data() {
     return {
       showModal: false,
+      username: username,
+      pdf: pdf,
       titles: titles,
       contents: contents,
     }
   },
   methods: {
 	  showCards() {
-      this.showModal = true;
-      var bbb = document.getElementById("aaa").value;
-      alert(bbb);
-      //...
+      // this.showModal = true;
+      var selectText = document.getElementById("selectText").value;
+      // pdfUrl = document.getElementById("pdf_display").src;
+      // username = pdfUrl.split('%2F')[2];
+      // this.username = username;
+      // this.pdf = pdfUrl.split('%2F')[3].split('.')[0];
+      // alert(1111)
+      // alert(pdfUrl)
+      wikipedia(selectText, this);
   	}
 	}
 }
@@ -127,7 +141,7 @@ export default {
           <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="test">测试</el-button>
-          <el-input id='aaa' placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
+          <el-input id="selectText" placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
         </el-card>
         <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
           <b>译文</b>
