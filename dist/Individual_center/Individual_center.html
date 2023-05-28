@@ -13,7 +13,7 @@
 <div class="modify_password" id="modify_password">
     <div class="modify_part_one" style="top: 5%">
         <p>修改密码</p>
-	<button onclick="back_path()">
+        <button onclick="back_path()">
             <img src="https://www.z4a.net/images/2023/05/24/2023-05-24-15.02.21.png" alt="" id="icon">
         </button>
     </div>
@@ -107,7 +107,7 @@
                                 <p id="name"></p >
                             </div>
                             <button id="delete_button" onclick="delete_button()">
-                                <img src="https://www.z4a.net/images/2023/05/24/2023-05-24-14.48.50.png" alt="">
+                                <img src="https://www.z4a.net/images/2023/05/24/2023-05-24-10.20.53.png" alt="">
                             </button>
                         </div>
                         <button onclick="input_file()" id="file_button">从本机上传文件</button>
@@ -166,40 +166,15 @@
                     <p class="study_card_name">学习闪卡</p>
                     <div class="search" id="study_card_search">
                         <img src="https://www.z4a.net/images/2023/05/09/2023-05-09-23.10.53.png" alt="photo">
-                        <input type="text" placeholder="请输入闪卡名称" class="input_box" >
+                        <input type="text" placeholder="请输入闪卡名称" class="input_box" onkeyup="showCard(this.value)">
                     </div>
                 </div>
-                <!--对于闪卡区域的定义-->
-                <div class="pdf_show_table" id="study_card_show_table">
-                    <!--此处存放对应的示例-->
-                    <!--学习闪卡示例1-->
-                    <div class="study_card_block"  style="top: 3%">
-                        <div class="study_card_block_name">
-                            <img src="https://www.z4a.net/images/2023/05/11/2023-05-11-21.37.16.png" class="study_icon">
-                            <div class="study_card_block_name_div">
-                                <p class="study_card_name" style="left: 0%">APT攻击</p>
-                            </div>
-                        </div>
-                        <div class="study_card_block_content">
-                                <p class="study_card_block_content_fond">APT攻击，即高级可持续威胁攻击,也称为定向威胁攻击，指某组织对特定对象展开的持续有效的攻击活动。
-                                    这种攻击活动具有极强的隐蔽性和针对性,通常会运用受感染的各种介质、供应链和社会工程学等多种手段实施先进的、持久的且有效的威胁和攻击。</p>
-                        </div>
-                    </div>
-                    <!--学习闪卡示例2-->
-                    <div class="study_card_block"  style="top: 66%">
-                        <div class="study_card_block_name">
-                            <img src="https://www.z4a.net/images/2023/05/11/2023-05-11-21.37.16.png" class="study_icon">
-                            <div class="study_card_block_name_div">
-                                <p class="study_card_name" style="left: 0%">溯源图</p>
-                            </div>
-                        </div>
-                        <div class="study_card_block_content">
-                            <p class="study_card_block_content_fond">2015 年，美国国防部高级研究计划署（DARPA）启动的一项名为 “透明计算（Transparent Computing）” 的科研项目为上述问题的解决提供了可能性。
-                                该项目旨在通过将目前不透明的计算系统变得透明，辅助海量的系统日志建模，从而为后续的高层次程序行为分析和高效地入侵检测提供支持。具体来说，该项目将开发一套数据收集与建模系统来记录和建模所有系统和网络实体
-                                （包括进程、文件、网络端口等）及其之间的互动和因果关系（Causal Dependency）。这些实体和关系可以以图的形式表示，如图2所示，一般被称为 “溯源图（Provenance Graph）” 或者 “因果图（Causality Graph）”。</p>
-                        </div>
-                    </div>
 
+                <div id="test2">
+                    <!--对于闪卡区域的定义-->
+                    <div class="pdf_show_table" id="study_card_show_table">
+                        <!--此处存放对应的示例-->
+                    </div>
                 </div>
             </div>
 

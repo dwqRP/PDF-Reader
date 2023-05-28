@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/xml; charset=utf-8');
 header('Access-Control-Allow-Origin:*');
 // 获取表单数据
 $username_receive = $_REQUEST['username'];
@@ -8,13 +9,17 @@ $detail_receive = $_REQUEST['detail'];
 // 进行数据库服务器的连接
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "yifan0708";
 // 创建连接
 $conn = new mysqli($servername, $username, $password);
 // 检测连接
 if ($conn->connect_error) {
     die("连接失败: " . $conn->connect_error);
 }
+
+mysqli_query($conn, "set names utf8");
+// $conn->set_charset('utf8');
+
 // 创建数据库
 $sql = "CREATE DATABASE IF NOT EXISTS $username_receive";
 mysqli_query($conn, $sql);

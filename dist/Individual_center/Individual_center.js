@@ -10,7 +10,7 @@ function choose_file(){
 function modify_password(){
     document.getElementById('none_one').style.opacity= 0.5;
     document.getElementById('modify_password').style.display = 'block';
-    }
+}
 
 function back_path(){
     document.getElementById('none_one').style.opacity= 1;
@@ -74,16 +74,34 @@ function delete_button(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200) {
-            document.getElementById('get_img').style.display = 'none';
-            document.getElementById('pdf_show_table').style.display = 'block';
-            file = null;
+            if(this.responseText == 'success') {
+                document.getElementById('get_img').style.display = 'none';
+                document.getElementById('pdf_show_table').style.display = 'block';
+                file = null;
+            }
+            else {
+                var xhttp1 = new XMLHttpRequest();
+                xhttp1.onreadystatechange = function () {
+                    if(this.readyState == 4 && this.status == 200) {
+                        document.getElementById('get_img').style.display = 'none';
+                        document.getElementById('pdf_show_table').style.display = 'block';
+                        file = null;
+                    }
+                }
+                xhttp1.open("POST","/server/delete_button.php",true);
+                var send_message = "account=" + account_receive + "&name=" + name;
+                xhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhttp1.send(send_message);
+            }
         }
     };
-    xhttp.open("POST","/server/delete_button.php",true);
+    xhttp.open("POST","/server/is_file.php",true);
     var send_message = "account=" + account_receive + "&name=" + name;
     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhttp.send(send_message);
 }
+
+
 
 //点击获取上传的文件
 function selectFile(e) {
@@ -468,6 +486,7 @@ function study_card(){
     document.getElementById('pdf_show_area').style.display = 'none';
     document.getElementById('show_img_one').style.display = 'none';
     document.getElementById('show_img_two').style.display = 'none';
+    flush_card_table();
     document.getElementById('study_card').style.display = 'block';
 }
 
@@ -618,6 +637,7 @@ function showResult(str){
     };
     xhttp.open("POST","/server/search.php",true);
     var send_message = "account=" + account + "&input=" + input;
+    console.log(send_message);
     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhttp.send(send_message);
 }
@@ -740,6 +760,99 @@ function flush_pdf_table() {
     };
     xhttp.open("POST","/server/flush_pdf_table.php",true);
     var send_message = "account=" + account_receive;
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send(send_message);
+}
+
+function flush_card_table() {
+    var account_receive = window.sessionStorage.getItem("account");
+    var xhttp = new XMLHttpRequest();
+    var n = 0;
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200) {
+            var xmlDoc = this.responseXML;
+            if(xmlDoc.getElementsByTagName("word").length == 0){
+                document.getElementById('study_card_show_table').remove();
+                var htmlinner = '<div class="pdf_show_table" id="study_card_show_table">';
+                htmlinner = htmlinner + '</div>';
+                document.getElementById('test2').innerHTML = htmlinner;
+            }
+            else {
+                document.getElementById('study_card_show_table').remove();
+                var card_length = xmlDoc.getElementsByTagName("word").length;
+                var htmlinner = '<div class="pdf_show_table" id="study_card_show_table">';
+                for(var i = 0; i < card_length; ++i) {
+                    n = 3 + 63 * i;
+                    htmlinner +=
+                        '<div class = "study_card_block" style = "top:' + n.toString() +'%">' +
+                            '<div class="study_card_block_name">' +
+                                '<img src="https://www.z4a.net/images/2023/05/11/2023-05-11-21.37.16.png" class="study_icon">' +
+                                '<div class="study_card_block_name_div">' +
+                                    '<p class="study_card_name" style="left: 0">' + xmlDoc.getElementsByTagName("word")[i].childNodes[0].nodeValue + '</p>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="study_card_block_content">' +
+                                '<p class="study_card_block_content_fond">' + xmlDoc.getElementsByTagName("detail")[i].childNodes[0].nodeValue + '</p>' +
+                            '</div>' +
+                        '</div>' ;
+                }
+                htmlinner += '</div>';
+                document.getElementById('test2').innerHTML = htmlinner;
+            }
+        }
+    }
+    xhttp.open("POST","/server/flush_card_table.php",true);
+    var send_message = "account=" + account_receive;
+    // console.log(send_message);
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send(send_message);
+}
+
+function showCard(str) {
+    var account = window.sessionStorage.getItem("account");
+    var xhttp = new XMLHttpRequest();
+    var n = 0;
+    var input = str;
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200) {
+            if(str == '') flush_card_table();
+            else{
+                var xmlDoc = this.responseXML;
+                console.log(xmlDoc);
+                if(xmlDoc.getElementsByTagName("word").length == 0){
+                    document.getElementById('study_card_show_table').remove();
+                    var htmlinner = '<div class="pdf_show_table" id="study_card_show_table">';
+                    htmlinner = htmlinner + '</div>';
+                    document.getElementById('test2').innerHTML = htmlinner;
+                }
+                else {
+                    document.getElementById('study_card_show_table').remove();
+                    var card_length = xmlDoc.getElementsByTagName("word").length;
+                    var htmlinner = '<div class="pdf_show_table" id="study_card_show_table">';
+                    for(var i = 0; i < card_length; ++i) {
+                        n = 3 + 63 * i;
+                        htmlinner +=
+                            '<div class = "study_card_block" style = "top:' + n.toString() +'%">' +
+                            '<div class="study_card_block_name">' +
+                            '<img src="https://www.z4a.net/images/2023/05/11/2023-05-11-21.37.16.png" class="study_icon">' +
+                            '<div class="study_card_block_name_div">' +
+                            '<p class="study_card_name" style="left: 0">' + xmlDoc.getElementsByTagName("word")[i].childNodes[0].nodeValue + '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="study_card_block_content">' +
+                            '<p class="study_card_block_content_fond">' + xmlDoc.getElementsByTagName("detail")[i].childNodes[0].nodeValue + '</p>' +
+                            '</div>' +
+                            '</div>' ;
+                    }
+                    htmlinner += '</div>';
+                    document.getElementById('test2').innerHTML = htmlinner;
+                }
+            }
+        }
+    }
+    let send_message = "input=" + input + "&account=" + account;
+    console.log(send_message);
+    xhttp.open("POST","/server/search_card.php",true);
     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhttp.send(send_message);
 }
