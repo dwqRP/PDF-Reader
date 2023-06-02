@@ -6,9 +6,9 @@ import { ref, onMounted, reactive, inject } from "vue"
 import { translate_baidu, translate_youdao } from "./utils/myFunction.js"
 import "./global.css"
 
-// const pdfUrl = inject('message') as string;
+const pdfUrl = inject('message') as string;
 // todo：注释掉这里
-const pdfUrl = "/pdf/alan/test_pdf.pdf";
+// const pdfUrl = "/pdf/alan/test_pdf.pdf";
 const selectText = ref('');
 const translateText = ref('');
 const lineCount = reactive({
@@ -104,8 +104,8 @@ export default {
 </script>
 
 <template>
-  <div is="vue:'script'" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></div> 
-  <div is="vue:'script'" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></div> 
+  <div v-is="'script'" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></div> 
+  <div v-is="'script'" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></div>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script> -->
   <!-- <div class="model" v-show="isShowMultiple" @click="setMaskShow($event)">
