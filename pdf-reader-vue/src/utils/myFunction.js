@@ -14,7 +14,7 @@ export function translate_baidu(translateText, query) {
     let str1 = appid + query + salt + key;
     let sign = MD5(str1);
     $.ajax({
-        url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+        url: 'https://api.fanyi.baidu.com/api/trans/vip/translate',
         type: 'get',
         dataType: 'jsonp',
         data: {
@@ -165,7 +165,7 @@ export function page_detail(pageIds, that) {
                 let str1 = appid + query + salt + key;
                 let sign = MD5(str1);
                 $.ajax({
-                    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+                    url: 'https://api.fanyi.baidu.com/api/trans/vip/translate',
                     type: 'get',
                     dataType: 'jsonp',
                     data: {

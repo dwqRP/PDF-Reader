@@ -67,11 +67,6 @@ const retran = function () {
   if (picked == 'Two') translate_youdao(translateText, selectText.value);
 }
 
-const test = function () {
-  // alert(selectText.value);
-  alert(cardChoose);
-}
-
 onMounted(() => {
   getLineNum();
   getSelectText();
@@ -109,8 +104,8 @@ export default {
 </script>
 
 <template>
-  <div v-is="'script'" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></div> 
-  <div v-is="'script'" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></div> 
+  <div is="vue:'script'" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></div> 
+  <div is="vue:'script'" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></div> 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script> -->
   <!-- <div class="model" v-show="isShowMultiple" @click="setMaskShow($event)">
@@ -136,11 +131,12 @@ export default {
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain id="show-modal" @click="showCards">选择闪卡</el-button>
           <b> 原文（点击进行修改）</b>
           <el-button color="#626aef" style="margin-bottom: 3px;" size="small" plain @click="retran">重新翻译</el-button>
+          <br>
           <input type="radio" id="one" value="One" v-model="picked">
           <label for="one">百度翻译</label>
           <input type="radio" id="two" value="Two" v-model="picked">
           <label for="two">有道翻译</label>
-          <el-input id="selectText" placeholder="原文" type="textarea" :rows="lineCount.num" v-model="selectText" resize="none"></el-input>
+          <el-input id="selectText" placeholder="原文" type="textarea" :rows="lineCount.num - 1" v-model="selectText" resize="none"></el-input>
         </el-card>
         <el-card shadow="hover" style="height: 49vh; width: 33vw;background-color: #f9f9fa;">
           <b>译文</b>
